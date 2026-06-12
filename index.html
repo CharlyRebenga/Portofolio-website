@@ -46,7 +46,7 @@
     position: fixed;
     top: 20px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(0) scale(1);
     z-index: 1000;
     background: rgba(26,26,26,0.92);
     backdrop-filter: blur(12px);
@@ -56,6 +56,19 @@
     align-items: center;
     gap: 6px;
     white-space: nowrap;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0);
+  }
+  nav:hover {
+    transform: translateX(-50%) translateY(0) scale(1.06);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  }
+  nav.nav-hidden {
+    transform: translateX(-50%) translateY(-90px) scale(1);
+    opacity: 0;
+  }
+  nav.nav-hidden:hover {
+    transform: translateX(-50%) translateY(-90px) scale(1);
   }
   nav a {
     color: rgba(255,255,255,0.6);
@@ -500,16 +513,48 @@
     border-radius: 28px;
     padding: 72px 60px;
     max-width: 1200px;
-    margin: 0 auto 80px;
+    margin: 0 auto 16px;
   }
   .about-card .section-label-text { color: var(--orange); }
   .about-card .section-title { color: var(--black); margin-bottom: 32px; }
+  .about-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .about-main {
+    flex: 1;
+    min-width: 0;
+  }
   .about-text {
     font-size: 16px;
     line-height: 1.8;
     color: rgba(26,26,26,0.72);
     margin-bottom: 36px;
     max-width: 680px;
+    text-align: justify;
+  }
+  .about-photo {
+    flex-shrink: 0;
+    width: 220px;
+    height: 220px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    border: 1px solid rgba(26,26,26,0.06);
+    margin-left: -20px;
+  }
+  .about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .about-content { flex-direction: column-reverse; align-items: center; }
+    .about-photo { width: 140px; height: 140px; }
+    .about-text { text-align: left; }
   }
   .about-links {
     display: flex;
@@ -549,7 +594,7 @@
 
   footer {
     text-align: center;
-    padding: 36px 24px;
+    padding: 8px 24px 32px;
     font-size: 13px;
     color: var(--gray);
     font-family: 'Space Grotesk', sans-serif;
@@ -599,16 +644,7 @@
 <!-- CARROUSELS -->
 <section id="carousels">
   <div class="section-label">
-    <span class="tool-badge tb-figma">
-      <svg width="12" height="17" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M19 28.5C19 25.3174 20.2643 22.2652 22.5147 20.0147C24.7652 17.7643 27.8174 16.5 31 16.5C34.1826 16.5 37.2348 17.7643 39.4853 20.0147C41.7357 22.2652 43 25.3174 43 28.5C43 31.6826 41.7357 34.7348 39.4853 36.9853C37.2348 39.2357 34.1826 40.5 31 40.5C27.8174 40.5 24.7652 39.2357 22.5147 36.9853C20.2643 34.7348 19 31.6826 19 28.5Z" fill="#1ABCFE"/>
-        <path d="M-5 47.5C-5 44.3174 -3.73571 41.2652 -1.48528 39.0147C0.765165 36.7643 3.8174 35.5 7 35.5H19V47.5C19 50.6826 17.7357 53.7348 15.4853 55.9853C13.2348 58.2357 10.1826 59.5 7 59.5C3.8174 59.5 0.765165 58.2357 -1.48528 55.9853C-3.73571 53.7348 -5 50.6826 -5 47.5Z" fill="#0ACF83"/>
-        <path d="M19 -2.5V16.5H31C34.1826 16.5 37.2348 15.2357 39.4853 12.9853C41.7357 10.7348 43 7.6826 43 4.5C43 1.3174 41.7357 -1.7348 39.4853 -3.98528C37.2348 -6.23571 34.1826 -7.5 31 -7.5L19 -2.5Z" fill="#FF7262"/>
-        <path d="M-5 4.5C-5 7.6826 -3.73571 10.7348 -1.48528 12.9853C0.765165 15.2357 3.8174 16.5 7 16.5H19V-7.5H7C3.8174 -7.5 0.765165 -6.23571 -1.48528 -3.98528C-3.73571 -1.7348 -5 1.3174 -5 4.5Z" fill="#F24E1E"/>
-        <path d="M-5 28.5C-5 31.6826 -3.73571 34.7348 -1.48528 36.9853C0.765165 39.2357 3.8174 40.5 7 40.5H19V16.5H7C3.8174 16.5 0.765165 17.7643 -1.48528 20.0147C-3.73571 22.2652 -5 25.3174 -5 28.5Z" fill="#A259FF"/>
-      </svg>
-      Figma
-    </span>
+    <span class="tool-badge tb-figma">Figma</span>
     <span class="section-label-text">LinkedIn</span>
   </div>
   <h2 class="section-title">Carrousels</h2>
@@ -622,10 +658,16 @@
     <div class="carousel-track-container">
       <div class="carousel-viewport">
         <div class="carousel-track" id="c1-track">
-          <div class="carousel-slide"><img src="img/c1_s1.jpg" alt="Slide 1 — Les 4 variables clés IRVE"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c1_s1.jpg" alt="Les 4 variables clés pour bien dimensionner votre installation IRVE"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c1_s2.jpg" alt="Variable 1 — Le taux d'équipement actuel et futur"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c1_s3.jpg" alt="Variable 2 — Le profil de stationnement"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c1_s4.jpg" alt="Variable 3 — La capacité de l'infrastructure électrique"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c1_s5.jpg" alt="Variable 4 — Supervision & facturation"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c1_s6.jpg" alt="L'erreur classique à éviter"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c1_s7.jpg" alt="Vous gérez un projet IRVE ?"></div>
         </div>
       </div>
-      <div class="carousel-controls" id="c1-controls" style="display:none;">
+      <div class="carousel-controls" id="c1-controls">
         <div class="carousel-dots" id="c1-dots"></div>
         <div class="carousel-arrows">
           <button class="arrow-btn" onclick="carouselPrev('c1')" aria-label="Précédent">
@@ -637,7 +679,6 @@
         </div>
       </div>
     </div>
-    <p style="font-size:12px;color:var(--gray);margin-top:10px;font-style:italic;">Carrousel en cours de complétion — les autres slides arrivent bientôt.</p>
   </div>
 
   <!-- C2 : 8 erreurs à éviter sans AMO -->
@@ -649,16 +690,16 @@
     <div class="carousel-track-container">
       <div class="carousel-viewport">
         <div class="carousel-track" id="c2-track">
-          <div class="carousel-slide"><img src="img/c2_cover.jpg" alt="Cover — 8 erreurs à éviter sans AMO"></div>
-          <div class="carousel-slide"><img src="img/c2_s1_surface.jpg" alt="Ne dimensionner que selon la surface"></div>
-          <div class="carousel-slide"><img src="img/c2_s2_toiture.jpg" alt="Ne pas analyser la structure de la toiture"></div>
-          <div class="carousel-slide"><img src="img/c2_s3_raccordement.jpg" alt="Sous-estimer le délai de raccordement"></div>
-          <div class="carousel-slide"><img src="img/c2_s4_urbanisme.jpg" alt="Ignorer les contraintes d'urbanisme"></div>
-          <div class="carousel-slide"><img src="img/c2_s5_cadre.jpg" alt="Ne pas définir un cadre bien précis"></div>
-          <div class="carousel-slide"><img src="img/c2_s6_maintenance.jpg" alt="Pas de contrat de maintenance"></div>
-          <div class="carousel-slide"><img src="img/c2_s7_icpe.jpg" alt="Oublier les contraintes ICPE et incendie"></div>
-          <div class="carousel-slide"><img src="img/c2_s8_permis.jpg" alt="Déposer le permis de construire trop tard"></div>
-          <div class="carousel-slide"><img src="img/c2_s9_amo.jpg" alt="Besoin d'un AMO ? Contactez nos experts"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c2_cover.jpg" alt="Cover — 8 erreurs à éviter sans AMO"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c2_s1_surface.jpg" alt="Ne dimensionner que selon la surface"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c2_s2_toiture.jpg" alt="Ne pas analyser la structure de la toiture"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c2_s3_raccordement.jpg" alt="Sous-estimer le délai de raccordement"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c2_s4_urbanisme.jpg" alt="Ignorer les contraintes d'urbanisme"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c2_s5_cadre.jpg" alt="Ne pas définir un cadre bien précis"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c2_s6_maintenance.jpg" alt="Pas de contrat de maintenance"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c2_s7_icpe.jpg" alt="Oublier les contraintes ICPE et incendie"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c2_s8_permis.jpg" alt="Déposer le permis de construire trop tard"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c2_s9_amo.jpg" alt="Besoin d'un AMO ? Contactez nos experts"></div>
         </div>
       </div>
       <div class="carousel-controls">
@@ -684,13 +725,13 @@
     <div class="carousel-track-container">
       <div class="carousel-viewport">
         <div class="carousel-track" id="c3-track">
-          <div class="carousel-slide"><img src="img/c3_s1.jpg" alt="Slide 1"></div>
-          <div class="carousel-slide"><img src="img/c3_s2.jpg" alt="Slide 2"></div>
-          <div class="carousel-slide"><img src="img/c3_s3.jpg" alt="Slide 3"></div>
-          <div class="carousel-slide"><img src="img/c3_s4.jpg" alt="Slide 4"></div>
-          <div class="carousel-slide"><img src="img/c3_s5.jpg" alt="Slide 5"></div>
-          <div class="carousel-slide"><img src="img/c3_s6.jpg" alt="Slide 6"></div>
-          <div class="carousel-slide"><img src="img/c3_s7.jpg" alt="Slide 7"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c3_s1.jpg" alt="Slide 1"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c3_s2.jpg" alt="Slide 2"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c3_s3.jpg" alt="Slide 3"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c3_s4.jpg" alt="Slide 4"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c3_s5.jpg" alt="Slide 5"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c3_s6.jpg" alt="Slide 6"></div>
+          <div class="carousel-slide"><img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/c3_s7.jpg" alt="Slide 7"></div>
         </div>
       </div>
       <div class="carousel-controls">
@@ -714,14 +755,13 @@
 <section id="landingpages">
   <div class="lp-section-label">
     <span class="tool-badge tb-wix">WIX</span>
-    <span class="section-label-text">Terneo</span>
   </div>
   <h2 class="section-title">Landing Pages</h2>
 
   <div class="lp-grid">
     <a class="lp-card" href="https://www.terneo.fr/stockage-energie" target="_blank" rel="noopener">
       <div class="lp-card-img-wrap">
-        <img class="lp-card-img" src="img/lp_stockage.jpg" alt="Stockage solaire">
+        <img class="lp-card-img" src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/lp_stockage.jpg" alt="Stockage solaire">
       </div>
       <div class="lp-card-body">
         <p class="lp-card-tag">Photovoltaïque</p>
@@ -732,7 +772,7 @@
 
     <a class="lp-card" href="https://www.terneo.fr/irve-entreprise" target="_blank" rel="noopener">
       <div class="lp-card-img-wrap">
-        <img class="lp-card-img" src="img/lp_irve_entreprise.jpg" alt="IRVE Entreprise">
+        <img class="lp-card-img" src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/lp_irve_entreprise.jpg" alt="IRVE Entreprise">
       </div>
       <div class="lp-card-body">
         <p class="lp-card-tag">IRVE</p>
@@ -743,7 +783,7 @@
 
     <a class="lp-card" href="https://www.terneo.fr/conseil-en-reduction-energetique-particulier-entreprise-collectivite" target="_blank" rel="noopener">
       <div class="lp-card-img-wrap">
-        <img class="lp-card-img" src="img/lp_conseil.jpg" alt="Réduction consommation">
+        <img class="lp-card-img" src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/lp_conseil.jpg" alt="Réduction consommation">
       </div>
       <div class="lp-card-body">
         <p class="lp-card-tag">Efficacité énergétique</p>
@@ -752,20 +792,9 @@
       </div>
     </a>
 
-    <a class="lp-card" href="https://www.terneo.fr/e-books" target="_blank" rel="noopener">
-      <div class="lp-card-img-wrap">
-        <img class="lp-card-img" src="img/lp_ebooks.jpg" alt="Guides et e-books">
-      </div>
-      <div class="lp-card-body">
-        <p class="lp-card-tag">Ressources</p>
-        <h3 class="lp-card-title">Nos guides et études de cas</h3>
-        <span class="lp-cta">Voir la page →</span>
-      </div>
-    </a>
-
     <a class="lp-card" href="https://www.terneo.fr/irve" target="_blank" rel="noopener">
       <div class="lp-card-img-wrap">
-        <img class="lp-card-img" src="img/lp_irve.jpg" alt="Installation bornes IRVE">
+        <img class="lp-card-img" src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/lp_irve.jpg" alt="Installation bornes IRVE">
       </div>
       <div class="lp-card-body">
         <p class="lp-card-tag">IRVE</p>
@@ -774,20 +803,9 @@
       </div>
     </a>
 
-    <a class="lp-card" href="https://www.terneo.fr/r%C3%A9f%C3%A9rences" target="_blank" rel="noopener">
-      <div class="lp-card-img-wrap">
-        <img class="lp-card-img" src="img/lp_references.jpg" alt="Nos références">
-      </div>
-      <div class="lp-card-body">
-        <p class="lp-card-tag">Références</p>
-        <h3 class="lp-card-title">Nos références — +300 entreprises accompagnées</h3>
-        <span class="lp-cta">Voir la page →</span>
-      </div>
-    </a>
-
     <a class="lp-card" href="https://www.terneo.fr/assistance-maitrise-d-ouvrage-photovoltaique" target="_blank" rel="noopener">
       <div class="lp-card-img-wrap">
-        <img class="lp-card-img" src="img/lp_amo.jpg" alt="AMO Photovoltaïque">
+        <img class="lp-card-img" src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/lp_amo.jpg" alt="AMO Photovoltaïque">
       </div>
       <div class="lp-card-body">
         <p class="lp-card-tag">AMO PV</p>
@@ -798,7 +816,7 @@
 
     <a class="lp-card" href="https://www.terneo.fr/copie-de-irve" target="_blank" rel="noopener">
       <div class="lp-card-img-wrap">
-        <img class="lp-card-img" src="img/lp_asset.jpg" alt="Asset Management">
+        <img class="lp-card-img" src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/lp_asset.jpg" alt="Asset Management">
       </div>
       <div class="lp-card-body">
         <p class="lp-card-tag">Photovoltaïque</p>
@@ -823,75 +841,99 @@
     <button class="tab-btn active" onclick="filterGallery('all', this)">Tout</button>
     <button class="tab-btn" onclick="filterGallery('affiche', this)">Affiches &amp; Photomontages</button>
     <button class="tab-btn" onclick="filterGallery('logo', this)">Logos &amp; Identité visuelle</button>
+    <button class="tab-btn" onclick="filterGallery('youtube', this)">Identités YouTube</button>
     <button class="tab-btn" onclick="filterGallery('album', this)">Pochette d'album</button>
   </div>
 
   <div class="gallery-grid" id="gallery">
     <!-- Affiches & photomontages -->
-    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('img/gfx_lost.jpg','LOST — Affiche film')">
-      <img src="img/gfx_lost.jpg" alt="Affiche LOST">
+    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_lost.jpg','LOST — Affiche film')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_lost.jpg" alt="Affiche LOST">
       <div class="gallery-overlay"><span class="gallery-label">LOST — Affiche film</span></div>
     </div>
-    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('img/gfx_last_summer.jpg','The Last Summer — Affiche film')">
-      <img src="img/gfx_last_summer.jpg" alt="The Last Summer">
+    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_last_summer.jpg','The Last Summer — Affiche film')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_last_summer.jpg" alt="The Last Summer">
       <div class="gallery-overlay"><span class="gallery-label">The Last Summer — Affiche film</span></div>
     </div>
-    <div class="gallery-item square visible" data-cat="affiche" onclick="openLightbox('img/gfx_mountain.jpg','Photomontage — Montagne')">
-      <img src="img/gfx_mountain.jpg" alt="Photomontage montagne">
+    <div class="gallery-item square visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mountain.jpg','Photomontage — Montagne')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mountain.jpg" alt="Photomontage montagne">
       <div class="gallery-overlay"><span class="gallery-label">Photomontage — Montagne</span></div>
     </div>
-    <div class="gallery-item square visible" data-cat="affiche" onclick="openLightbox('img/gfx_godzilla.jpg','Photomontage — Godzilla')">
-      <img src="img/gfx_godzilla.jpg" alt="Photomontage Godzilla">
+    <div class="gallery-item square visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_godzilla.jpg','Photomontage — Godzilla')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_godzilla.jpg" alt="Photomontage Godzilla">
       <div class="gallery-overlay"><span class="gallery-label">Photomontage — Godzilla</span></div>
+    </div>
+    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_poster_traveling.jpg','Traveling — Poster')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_poster_traveling.jpg" alt="Poster Traveling">
+      <div class="gallery-overlay"><span class="gallery-label">Traveling — Poster</span></div>
+    </div>
+    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_poster_natures_rights.jpg','Nature\'s Rights — Poster')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_poster_natures_rights.jpg" alt="Poster Nature's Rights">
+      <div class="gallery-overlay"><span class="gallery-label">Nature's Rights : The Ocean — Poster</span></div>
     </div>
 
     <!-- Logos & identité -->
-    <div class="gallery-item tall visible" data-cat="logo" onclick="openLightbox('img/gfx_mainverte_logo.jpg','La Main Verte — Identité')">
-      <img src="img/gfx_mainverte_logo.jpg" alt="La Main Verte — Identité">
+    <div class="gallery-item tall visible" data-cat="logo" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_logo.jpg','La Main Verte — Identité')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_logo.jpg" alt="La Main Verte — Identité">
       <div class="gallery-overlay"><span class="gallery-label">La Main Verte — Identité visuelle</span></div>
     </div>
-    <div class="gallery-item tall visible" data-cat="logo" onclick="openLightbox('img/gfx_mainverte_bouquet.jpg','La Main Verte — Bouquet')">
-      <img src="img/gfx_mainverte_bouquet.jpg" alt="La Main Verte — Bouquet">
+    <div class="gallery-item tall visible" data-cat="logo" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_bouquet.jpg','La Main Verte — Bouquet')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_bouquet.jpg" alt="La Main Verte — Bouquet">
       <div class="gallery-overlay"><span class="gallery-label">La Main Verte — Illustration bouquet</span></div>
     </div>
-    <div class="gallery-item square visible" data-cat="logo" onclick="openLightbox('img/gfx_mainverte_cartes.jpg','La Main Verte — Cartes de visite')">
-      <img src="img/gfx_mainverte_cartes.jpg" alt="Cartes de visite La Main Verte">
+    <div class="gallery-item square visible" data-cat="logo" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_cartes.jpg','La Main Verte — Cartes de visite')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_cartes.jpg" alt="Cartes de visite La Main Verte">
       <div class="gallery-overlay"><span class="gallery-label">La Main Verte — Cartes de visite</span></div>
     </div>
-    <div class="gallery-item square visible" data-cat="logo" onclick="openLightbox('img/gfx_lemon.jpg','John Lemon — Illustration')">
-      <img src="img/gfx_lemon.jpg" alt="John Lemon">
+    <div class="gallery-item square visible" data-cat="logo" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_lemon.jpg','John Lemon — Illustration')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_lemon.jpg" alt="John Lemon">
       <div class="gallery-overlay"><span class="gallery-label">John Lemon — Illustration</span></div>
     </div>
 
+    <!-- Identités YouTube -->
+    <div class="gallery-item wide visible" data-cat="youtube" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_yt_dizzdead_banner.jpg','DizzDead — Bannière YouTube')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_yt_dizzdead_banner.jpg" alt="Bannière YouTube DizzDead">
+      <div class="gallery-overlay"><span class="gallery-label">DizzDead — Bannière YouTube</span></div>
+    </div>
+    <div class="gallery-item square visible" data-cat="youtube" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_yt_dizzdead_avatar.jpg','DizzDead — Avatar YouTube')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_yt_dizzdead_avatar.jpg" alt="Avatar YouTube DizzDead">
+      <div class="gallery-overlay"><span class="gallery-label">DizzDead — Avatar YouTube</span></div>
+    </div>
+
     <!-- Pochette d'album -->
-    <div class="gallery-item square visible" data-cat="album" onclick="openLightbox('img/gfx_blind.jpg','BLIND — Pochette d\'album')">
-      <img src="img/gfx_blind.jpg" alt="Pochette BLIND">
+    <div class="gallery-item square visible" data-cat="album" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_blind.jpg','BLIND — Pochette d\'album')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_blind.jpg" alt="Pochette BLIND">
       <div class="gallery-overlay"><span class="gallery-label">BLIND — Pochette d'album (Carla)</span></div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
-
 <!-- ABOUT -->
-<div style="padding: 0 24px 80px;">
+<div style="padding: 0 24px 24px;">
   <div class="about-card" id="about">
     <div class="section-label">
       <span class="section-label-text">À propos</span>
     </div>
     <h2 class="section-title">Charly Boustouhan</h2>
-    <p class="about-text">
-      Actuellement en fin de Master Stratégie de Marque &amp; Brand Content à l'ESP Paris, je suis chargé de communication et marketing en alternance chez Terneo, où je gère notamment la présence sur LinkedIn de l'entreprise, la création de landing pages et d'articles de blog dans le cadre de notre stratégie SEO/GEO. Avec 3 ans d'alternance (1KM à Pied, AGIRabcd puis Terneo), j'ai développé une expertise sur les leviers digitaux : SEO/GEO, LinkedIn Ads, e-mailing, newsletter, posts LinkedIn, gestion de projet, etc. Je combine organisation, rigueur, autonomie et force de proposition pour accompagner chaque projet sur lequel je travaille.
-    </p>
-    <div class="about-links">
-      <a class="contact-link" href="mailto:boustouhan.charly@gmail.com">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="white" stroke-width="2"/><polyline points="22,6 12,13 2,6" stroke="white" stroke-width="2"/></svg>
-        Me contacter
-      </a>
-      <a class="linkedin-link" href="https://www.linkedin.com/in/charly-b-123611207/" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12" fill="white"/><circle cx="4" cy="4" r="2" fill="white"/></svg>
-        LinkedIn
-      </a>
+    <div class="about-content">
+      <div class="about-main">
+        <p class="about-text">
+          Actuellement en fin de Master Stratégie de Marque &amp; Brand Content à l'ESP Paris, je suis chargé de communication et marketing en alternance chez Terneo, où je gère notamment la présence sur LinkedIn de l'entreprise, la création de landing pages et d'articles de blog dans le cadre de notre stratégie SEO/GEO. Avec 3 ans d'alternance (1KM à Pied, AGIRabcd puis Terneo), j'ai développé une expertise sur les leviers digitaux : SEO/GEO, LinkedIn Ads, e-mailing, newsletter, posts LinkedIn, gestion de projet, etc. Je combine organisation, rigueur, autonomie et force de proposition pour accompagner chaque projet sur lequel je travaille.
+        </p>
+        <div class="about-links">
+          <a class="contact-link" href="mailto:boustouhan.charly@gmail.com">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="white" stroke-width="2"/><polyline points="22,6 12,13 2,6" stroke="white" stroke-width="2"/></svg>
+            Me contacter
+          </a>
+          <a class="linkedin-link" href="https://www.linkedin.com/in/charly-b-123611207/" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12" fill="white"/><circle cx="4" cy="4" r="2" fill="white"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+      <div class="about-photo">
+        <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/profile_charly.jpg" alt="Charly Boustouhan">
+      </div>
     </div>
   </div>
 </div>
@@ -947,7 +989,7 @@ function carouselPrev(id) {
 }
 
 window.addEventListener('load', () => {
-  initCarousel('c1', 1);
+  initCarousel('c1', 7);
   initCarousel('c2', 10);
   initCarousel('c3', 7);
 });
@@ -991,6 +1033,9 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox()
 // ---- NAV active ----
 const sectionIds = ['hero','carousels','landingpages','graphisme','about'];
 const navLinks = document.querySelectorAll('nav a');
+const navEl = document.querySelector('nav');
+let lastScrollY = window.scrollY;
+
 window.addEventListener('scroll', () => {
   let cur = 'hero';
   sectionIds.forEach(id => {
@@ -998,6 +1043,15 @@ window.addEventListener('scroll', () => {
     if (el && window.scrollY >= el.offsetTop - 220) cur = id;
   });
   navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+
+  // Hide on scroll down, show on scroll up
+  const currentY = window.scrollY;
+  if (currentY > lastScrollY && currentY > 100) {
+    navEl.classList.add('nav-hidden');
+  } else if (currentY < lastScrollY) {
+    navEl.classList.remove('nav-hidden');
+  }
+  lastScrollY = currentY;
 }, {passive:true});
 </script>
 </body>
