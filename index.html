@@ -902,9 +902,17 @@
     display: block;
   }
   @media (max-width: 768px) {
-    .about-content { flex-direction: column-reverse; align-items: center; }
-    .about-photo { width: 140px; height: 140px; }
-    .about-text { text-align: left; }
+    .about-content { flex-direction: column; align-items: center; gap: 28px; }
+    .about-photo { width: 140px; height: 140px; margin-top: 0; align-self: center; }
+    .about-text { text-align: justify; }
+  }
+
+  /* Dots light mode - make inactive dots visible */
+  body.light-mode .dot {
+    background: rgba(26,28,46,0.25);
+  }
+  body.light-mode .dot.active {
+    background: var(--orange);
   }
   .about-links {
     display: flex;
@@ -1011,21 +1019,44 @@
     nav { display: none; }
     .about-card { padding: 44px 24px; }
     .carousel-slide { width: 260px; }
+    /* Fix page not staying centered on swipe */
+    body { overflow-x: hidden; }
+    #carousels, #landingpages, #graphisme, #livre-blanc { overflow-x: hidden; }
   }
 
   .mobile-fab {
     display: none;
     position: fixed;
-    bottom: 24px;
-    right: 88px;
+    top: 16px;
+    right: 16px;
+    bottom: auto;
     z-index: 1100;
     flex-direction: column;
     align-items: flex-end;
-    gap: 12px;
+    gap: 8px;
+  }
+  /* Menu items drop DOWN from the button */
+  .mobile-fab-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    margin-top: 8px;
+    order: 2;
+  }
+  .mobile-fab-menu.open {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
   }
   .mobile-fab-btn {
-    width: 52px;
-    height: 52px;
+    order: 1;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--orange) 0%, var(--orange-deep) 100%);
     border: none;
@@ -1048,22 +1079,6 @@
     box-shadow: 0 4px 20px rgba(30,79,191,0.45);
   }
   .mobile-fab-btn svg { transition: transform 0.3s; }
-
-  .mobile-fab-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: flex-end;
-    pointer-events: none;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  .mobile-fab-menu.open {
-    pointer-events: auto;
-    opacity: 1;
-    transform: translateY(0);
-  }
   .mobile-fab-item {
     display: flex;
     align-items: center;
@@ -1245,6 +1260,8 @@
   body.light-mode .hero-title { color: #1A1C2E; }
   body.light-mode .hero-sub { color: rgba(26,28,46,0.45); }
   body.light-mode .tag { color: rgba(26,28,46,0.55); background: rgba(0,0,0,0.04); border-color: rgba(26,28,46,0.14); }
+  body.light-mode .hero-tags .tag { cursor: default; }
+  body.light-mode [style*="Mes logiciels"] { color: rgba(26,28,46,0.35) !important; }
   body.light-mode .scroll-hint { color: rgba(26,28,46,0.35); }
   body.light-mode .section-divider { background: rgba(245,92,26,0.1); }
   body.light-mode .section-title { color: #1A1C2E; }
@@ -1359,11 +1376,15 @@
     <p class="hero-sub">Communication &amp; Marketing</p>
 
     <div class="hero-tags">
+      <div style="width:100%;text-align:center;margin-bottom:10px;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:rgba(232,234,242,0.3);">Mes logiciels</span>
+      </div>
       <span class="tag orange">Photoshop</span>
       <span class="tag ai">Illustrator</span>
       <span class="tag blue">Wix</span>
       <span class="tag yellow">Canva</span>
       <span class="tag purple">Figma</span>
+      <span class="tag" style="border-color:rgba(209,70,22,0.4);color:#D84315;">PowerPoint</span>
     </div>
   </div>
 
@@ -1797,7 +1818,7 @@ function goTo(id, index) {
   const track = document.getElementById(id + '-track');
   const slides = track.querySelectorAll('.carousel-slide');
   if (!slides.length) return;
-  const slideW = slides[0].offsetWidth + 20;
+  const slideW = slides[0].getBoundingClientRect().width + 20;
   track.style.transform = `translateX(-${c.current * slideW}px)`;
   const dots = document.querySelectorAll(`#${id}-dots .dot`);
   dots.forEach((d, i) => d.className = 'dot' + (i === c.current ? ' active' : ''));
@@ -1824,14 +1845,31 @@ window.addEventListener('resize', () => {
 });
 
 ['c1','c2','c3'].forEach(id => {
-  const track = document.getElementById(id + '-track');
-  if (!track) return;
-  let sx = 0;
-  track.addEventListener('touchstart', e => sx = e.touches[0].clientX, {passive:true});
-  track.addEventListener('touchend', e => {
+  const viewport = document.querySelector(`#${id}-track`)?.closest('.carousel-viewport');
+  if (!viewport) return;
+  let sx = 0, sy = 0, moved = false;
+
+  viewport.addEventListener('touchstart', e => {
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+    moved = false;
+  }, {passive: true});
+
+  viewport.addEventListener('touchmove', e => {
+    const dx = Math.abs(e.touches[0].clientX - sx);
+    const dy = Math.abs(e.touches[0].clientY - sy);
+    if (dx > dy && dx > 6) {
+      moved = true;
+      e.preventDefault(); // only prevent scroll when swiping horizontally
+    }
+  }, {passive: false});
+
+  viewport.addEventListener('touchend', e => {
     const diff = sx - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) diff > 0 ? carouselNext(id) : carouselPrev(id);
-  }, {passive:true});
+    if (moved && Math.abs(diff) > 40) {
+      diff > 0 ? carouselNext(id) : carouselPrev(id);
+    }
+  }, {passive: true});
 });
 
 // ======== GALLERY ========
