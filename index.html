@@ -249,7 +249,7 @@
     text-transform: uppercase;
   }
 
-  /* ===== TAGS ===== */
+  /* Tags - colored in both dark and light mode */
   .hero-tags {
     display: flex;
     flex-wrap: wrap;
@@ -271,16 +271,25 @@
     backdrop-filter: blur(8px);
   }
   .tag:hover { background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.25); }
-  .tag.blue { border-color: rgba(59,114,232,0.4); color: #6B9FFF; }
+  .tag.blue { border-color: rgba(59,114,232,0.45); color: #6B9FFF; background: rgba(59,114,232,0.08); }
   .tag.blue:hover { background: rgba(59,114,232,0.18); border-color: rgba(59,114,232,0.6); }
-  .tag.orange { border-color: rgba(245,92,26,0.4); color: #FF7A35; }
+  .tag.orange { border-color: rgba(245,92,26,0.45); color: #FF7A35; background: rgba(245,92,26,0.08); }
   .tag.orange:hover { background: rgba(245,92,26,0.18); border-color: rgba(245,92,26,0.6); }
-  .tag.yellow { border-color: rgba(245,166,35,0.35); color: #F5A623; }
-  .tag.yellow:hover { background: rgba(245,166,35,0.15); }
-  .tag.purple { border-color: rgba(155,89,182,0.4); color: #BB8FE8; }
+  .tag.yellow { border-color: rgba(245,166,35,0.45); color: #F5A623; background: rgba(245,166,35,0.08); }
+  .tag.yellow:hover { background: rgba(245,166,35,0.18); }
+  .tag.purple { border-color: rgba(155,89,182,0.45); color: #BB8FE8; background: rgba(155,89,182,0.08); }
   .tag.purple:hover { background: rgba(155,89,182,0.18); }
-  .tag.ai { border-color: rgba(255,154,0,0.4); color: #FFA830; }
-  .tag.ai:hover { background: rgba(255,154,0,0.15); }
+  .tag.ai { border-color: rgba(255,154,0,0.45); color: #FFA830; background: rgba(255,154,0,0.08); }
+  .tag.ai:hover { background: rgba(255,154,0,0.18); }
+  .tag.ppt { border-color: rgba(209,70,22,0.45); color: #D84315; background: rgba(209,70,22,0.08); }
+  .tag.ppt:hover { background: rgba(209,70,22,0.18); }
+  /* Light mode: same colors, slightly more opaque bg */
+  body.light-mode .tag.blue { background: rgba(59,114,232,0.10); }
+  body.light-mode .tag.orange { background: rgba(245,92,26,0.10); }
+  body.light-mode .tag.yellow { background: rgba(245,166,35,0.10); }
+  body.light-mode .tag.purple { background: rgba(155,89,182,0.10); }
+  body.light-mode .tag.ai { background: rgba(255,154,0,0.10); }
+  body.light-mode .tag.ppt { background: rgba(209,70,22,0.10); }
 
   .scroll-hint {
     position: absolute;
@@ -661,14 +670,14 @@
     color: var(--blue-light);
     margin-bottom: 20px;
   }
-  .lb-tag::before {
-    content: '';
-    display: block;
-    width: 20px;
-    height: 1px;
-    background: var(--blue-light);
-    opacity: 0.6;
-  }
+
+
+
+
+
+
+
+
   .lb-title {
     font-family: 'Space Grotesk', sans-serif;
     font-size: clamp(26px, 3.5vw, 42px);
@@ -699,6 +708,7 @@
     line-height: 1.8;
     color: rgba(232,234,242,0.65);
     margin-bottom: 32px;
+    text-align: justify;
   }
   .lb-stats {
     display: flex;
@@ -1259,7 +1269,6 @@
   body.light-mode nav a:hover, body.light-mode nav a.active { color: white; }
   body.light-mode .hero-title { color: #1A1C2E; }
   body.light-mode .hero-sub { color: rgba(26,28,46,0.45); }
-  body.light-mode .tag { color: rgba(26,28,46,0.55); background: rgba(0,0,0,0.04); border-color: rgba(26,28,46,0.14); }
   body.light-mode .hero-tags .tag { cursor: default; }
   body.light-mode [style*="Mes logiciels"] { color: rgba(26,28,46,0.35) !important; }
   body.light-mode .scroll-hint { color: rgba(26,28,46,0.35); }
@@ -1384,7 +1393,7 @@
       <span class="tag blue">Wix</span>
       <span class="tag yellow">Canva</span>
       <span class="tag purple">Figma</span>
-      <span class="tag" style="border-color:rgba(209,70,22,0.4);color:#D84315;">PowerPoint</span>
+      <span class="tag ppt">PowerPoint</span>
     </div>
   </div>
 
