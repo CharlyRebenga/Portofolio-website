@@ -168,11 +168,11 @@
     box-shadow: 0 0 16px rgba(245,92,26,0.4);
   }
 
-  /* ===== PIXEL TRAIL (header only) ===== */
+  /* ===== PIXEL TRAIL (site-wide) ===== */
   #pixel-trail-canvas {
-    position: absolute;
+    position: fixed;
     inset: 0;
-    z-index: 1;
+    z-index: 500;
     pointer-events: none;
   }
 
@@ -226,7 +226,7 @@
     margin-bottom: 28px;
   }
   .hero-title .highlight {
-    background: linear-gradient(135deg, var(--orange) 0%, var(--orange-bright) 40%, #FF9A50 100%);
+    background: linear-gradient(135deg, var(--blue-light) 0%, var(--orange) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -341,6 +341,16 @@
     color: #E8EAF2;
     margin-bottom: 52px;
   }
+  .section-intro {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(232,234,242,0.6);
+    max-width: 640px;
+    margin-top: -32px;
+    margin-bottom: 40px;
+  }
+  body.light-mode .section-intro { color: rgba(26,28,46,0.6); }
   .section-divider {
     height: 1px;
     background: rgba(59,114,232,0.12);
@@ -611,6 +621,19 @@
     transform: translateY(4px);
   }
   .gallery-item:hover .gallery-label { opacity: 1; transform: translateY(0); }
+  .gallery-desc {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 11.5px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: rgba(255,255,255,0.75);
+    margin-top: 6px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .gallery-item:hover .gallery-desc { opacity: 1; transform: translateY(0); }
 
   /* ===== LIGHTBOX ===== */
   .lightbox {
@@ -1336,6 +1359,9 @@
 </head>
 <body>
 
+<!-- Pixel trail canvas (site-wide) -->
+<canvas id="pixel-trail-canvas"></canvas>
+
 <!-- GLOBAL ANIMATED BACKGROUND -->
 <div class="hero-bg" aria-hidden="true">
   <div class="hero-bg-grid"></div>
@@ -1348,10 +1374,10 @@
 <!-- NAV (desktop) -->
 <nav id="mainNav">
   <a href="#hero" class="active">Portfolio</a>
+  <a href="#livre-blanc">Livre Blanc</a>
+  <a href="#graphisme">Graphisme</a>
   <a href="#carousels">Carrousels</a>
   <a href="#landingpages">Landing Pages</a>
-  <a href="#graphisme">Graphisme</a>
-  <a href="#livre-blanc">Livre Blanc</a>
   <a href="#about">À propos</a>
 </nav>
 
@@ -1359,10 +1385,10 @@
 <div class="mobile-fab" id="mobileFab">
   <div class="mobile-fab-menu" id="mobileFabMenu">
     <a href="#hero" class="mobile-fab-item"><span class="mobile-fab-dot"></span>Portfolio</a>
+    <a href="#livre-blanc" class="mobile-fab-item"><span class="mobile-fab-dot"></span>Livre Blanc</a>
+    <a href="#graphisme" class="mobile-fab-item"><span class="mobile-fab-dot"></span>Graphisme</a>
     <a href="#carousels" class="mobile-fab-item"><span class="mobile-fab-dot"></span>Carrousels</a>
     <a href="#landingpages" class="mobile-fab-item"><span class="mobile-fab-dot"></span>Landing Pages</a>
-    <a href="#graphisme" class="mobile-fab-item"><span class="mobile-fab-dot"></span>Graphisme</a>
-    <a href="#livre-blanc" class="mobile-fab-item"><span class="mobile-fab-dot"></span>Livre Blanc</a>
     <a href="#about" class="mobile-fab-item"><span class="mobile-fab-dot"></span>À propos</a>
   </div>
   <button class="mobile-fab-btn" id="mobileFabBtn" aria-label="Menu" onclick="toggleFab()">
@@ -1376,12 +1402,9 @@
 
 <!-- HERO -->
 <section id="hero" style="max-width:100%;padding-left:24px;padding-right:24px;">
-  <!-- Pixel trail canvas -->
-  <canvas id="pixel-trail-canvas"></canvas>
-
   <div class="hero-content">
     <p class="hero-eyebrow">portfolio</p>
-    <h1 class="hero-title"><span class="blue-accent">Charly</span><br><span class="highlight">Boustouhan</span></h1>
+    <h1 class="hero-title"><span class="blue-accent" id="typeCharly"></span><br><span class="highlight" id="typeBoustouhan"></span></h1>
     <p class="hero-sub">Communication &amp; Marketing</p>
 
     <div class="hero-tags">
@@ -1407,6 +1430,122 @@
 
 <div class="section-divider"></div>
 
+<!-- LIVRE BLANC -->
+<section id="livre-blanc">
+  <div class="lb-wrapper">
+    <div class="lb-content">
+      <p class="lb-tag">Livre Blanc</p>
+      <h2 class="lb-title">L'ancrage local comme outil de <em>séduction</em></h2>
+      <p class="lb-subtitle">Comment l'hôtellerie indépendante premium peut séduire les voyageurs au-delà des plateformes numériques ?</p>
+      <p class="lb-desc">
+        Face à Airbnb et aux géants du tourisme en ligne, l'hôtellerie indépendante dispose d'un atout unique : son ancrage territorial. Ce livre blanc explore comment les hôtels premium peuvent capitaliser sur leur identité locale, leurs relations humaines et leur singularité pour créer des expériences inoubliables que les plateformes ne peuvent pas répliquer.
+      </p>
+      <a class="lb-cta" href="https://charlyboustouhan.github.io/livre-blanc/" target="_blank" rel="noopener">
+        <span>En savoir plus</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="lb-preview">
+      <div class="lb-preview-glow"></div>
+      <a href="https://charlyboustouhan.github.io/livre-blanc/" target="_blank" rel="noopener" style="display:block;text-decoration:none;">
+        <div class="lb-preview-frame">
+          <div class="lb-preview-bar">
+            <span class="lb-dot"></span>
+            <span class="lb-dot"></span>
+            <span class="lb-dot"></span>
+          </div>
+          <img
+            class="lb-preview-cover"
+            src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/Livre%20Blanc%20premie%CC%80re%20page.jpg"
+            alt="Première page du Livre Blanc — L'ancrage local comme outil de séduction"
+            loading="lazy"
+            onerror="this.src='livre_blanc_cover.jpg'"
+          >
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- GRAPHISME -->
+<section id="graphisme">
+  <div class="section-label">
+    <span class="tool-badge tb-ps">Photoshop</span>
+    <span class="tool-badge tb-ai">Illustrator</span>
+  </div>
+  <h2 class="section-title">Créations graphiques</h2>
+
+  <div class="gallery-tabs">
+    <button class="tab-btn active" onclick="filterGallery('all', this)">Tout</button>
+    <button class="tab-btn" onclick="filterGallery('affiche', this)">Affiches &amp; Photomontages</button>
+    <button class="tab-btn" onclick="filterGallery('logo', this)">Logos &amp; Identité visuelle</button>
+    <button class="tab-btn" onclick="filterGallery('youtube', this)">Identités YouTube</button>
+    <button class="tab-btn" onclick="filterGallery('album', this)">Pochette d'album</button>
+  </div>
+
+  <div class="gallery-grid" id="gallery">
+    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_lost.jpg','LOST — Affiche film')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_lost.jpg" alt="Affiche LOST">
+      <div class="gallery-overlay"><span class="gallery-label">LOST — Affiche film<span class="gallery-desc">Création réalisée dans le cadre du cours de PAO avec Photoshop, à partir d'éléments visuels imposés, en reproduisant le design présenté par la professeure.</span></span></div>
+    </div>
+    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_last_summer.jpg','The Last Summer — Affiche film')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_last_summer.jpg" alt="The Last Summer">
+      <div class="gallery-overlay"><span class="gallery-label">The Last Summer — Affiche film<span class="gallery-desc">Création réalisée dans le cadre du cours de PAO avec Photoshop, à partir d'éléments visuels imposés, en reproduisant le design présenté par la professeure.</span></span></div>
+    </div>
+    <div class="gallery-item square visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mountain.jpg','Photomontage — Montagne')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mountain.jpg" alt="Photomontage montagne">
+      <div class="gallery-overlay"><span class="gallery-label">Photomontage — Montagne<span class="gallery-desc">Lors du cours de PAO, l'objectif était de superposer un certain nombre de calques tout en gardant un visuel beau et cohérent, à partir d'éléments imposés. Réalisé avec Photoshop.</span></span></div>
+    </div>
+    <div class="gallery-item square visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_godzilla.jpg','Photomontage — Godzilla')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_godzilla.jpg" alt="Photomontage Godzilla">
+      <div class="gallery-overlay"><span class="gallery-label">Photomontage — Godzilla<span class="gallery-desc">Lors du cours de PAO, l'objectif était de superposer un certain nombre de calques tout en gardant un visuel beau et cohérent, avec cette fois les éléments de notre choix. Je suis donc parti sur un thème apocalyptique avec Godzilla et Iron Man. Réalisé avec Photoshop.</span></span></div>
+    </div>
+    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_poster_traveling.jpg','Traveling — Poster')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_poster_traveling.jpg" alt="Poster Traveling">
+      <div class="gallery-overlay"><span class="gallery-label">Traveling — Poster<span class="gallery-desc">Poster réalisé avec Photoshop en laissant libre cours à l'imagination, en testant plusieurs styles et effets, peu après deux mois de travail en Irlande.</span></span></div>
+    </div>
+    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_poster_natures_rights.jpg','Nature\'s Rights — Poster')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_poster_natures_rights.jpg" alt="Poster Nature's Rights">
+      <div class="gallery-overlay"><span class="gallery-label">Nature's Rights : The Ocean — Poster<span class="gallery-desc">J'avais la volonté de mettre en avant la puissance et la résilience de la nature, en valorisant ses droits et sa beauté face à l'humain. Réalisé avec Photoshop.</span></span></div>
+    </div>
+    <div class="gallery-item tall visible" data-cat="logo" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_logo.jpg','La Main Verte — Identité')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_logo.jpg" alt="La Main Verte — Identité">
+      <div class="gallery-overlay"><span class="gallery-label">La Main Verte — Identité visuelle<span class="gallery-desc">Création d'un logo sous Illustrator dans le cadre du cours de PAO, pour une marque fictive mêlant deux activités : fleuriste et vendeur de glaces.</span></span></div>
+    </div>
+    <div class="gallery-item tall visible" data-cat="logo" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_bouquet.jpg','La Main Verte — Bouquet')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_bouquet.jpg" alt="La Main Verte — Bouquet">
+      <div class="gallery-overlay"><span class="gallery-label">La Main Verte — Illustration bouquet</span></div>
+    </div>
+    <div class="gallery-item square visible" data-cat="logo" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_cartes.jpg','La Main Verte — Cartes de visite')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_cartes.jpg" alt="Cartes de visite La Main Verte">
+      <div class="gallery-overlay"><span class="gallery-label">La Main Verte — Cartes de visite</span></div>
+    </div>
+    <div class="gallery-item square visible" data-cat="logo" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_lemon.jpg','John Lemon — Illustration')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_lemon.jpg" alt="John Lemon">
+      <div class="gallery-overlay"><span class="gallery-label">John Lemon — Illustration<span class="gallery-desc">Entraînement sur Illustrator avec la création de formes pour réaliser ce citron.</span></span></div>
+    </div>
+    <div class="gallery-item wide visible" data-cat="youtube" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_yt_dizzdead_banner.jpg','DizzDead — Bannière YouTube')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_yt_dizzdead_banner.jpg" alt="Bannière YouTube DizzDead">
+      <div class="gallery-overlay"><span class="gallery-label">DizzDead — Bannière YouTube</span></div>
+    </div>
+    <div class="gallery-item square visible" data-cat="youtube" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_yt_dizzdead_avatar.jpg','DizzDead — Avatar YouTube')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_yt_dizzdead_avatar.jpg" alt="Avatar YouTube DizzDead">
+      <div class="gallery-overlay"><span class="gallery-label">DizzDead — Avatar YouTube</span></div>
+    </div>
+    <div class="gallery-item square visible" data-cat="album" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_blind.jpg','BLIND — Pochette d\'album')">
+      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_blind.jpg" alt="Pochette BLIND">
+      <div class="gallery-overlay"><span class="gallery-label">BLIND — Pochette d'album<span class="gallery-desc">Lors du cours de PAO, nous devions créer une pochette d'album fictive en suivant les indications de la professeure.</span></span></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
 <!-- CARROUSELS -->
 <section id="carousels">
   <div class="section-label">
@@ -1414,6 +1553,7 @@
     <span class="section-label-text">LinkedIn</span>
   </div>
   <h2 class="section-title">Carrousels</h2>
+  <p class="section-intro">Création de carrousels pour le compte LinkedIn de Terneo, bureau d'études en transition énergétique. L'objectif est de mettre en avant les différentes offres et spécificités des activités de l'entreprise en ayant une image jeune, experte et vulgarisatrice de sujets complexes.</p>
 
   <!-- C1 -->
   <div class="carousel-wrapper">
@@ -1522,7 +1662,7 @@
     <span class="tool-badge tb-wix">WIX</span>
   </div>
   <h2 class="section-title">Landing Pages</h2>
-
+  <p class="section-intro">Optimisation et création de landing pages avec pour objectif d'être mieux référencé dans les résultats de recherche sur des mots-clés définis.</p>
   <div class="lp-grid">
     <a class="lp-card" href="https://www.terneo.fr/stockage-energie" target="_blank" rel="noopener">
       <div class="lp-card-img-wrap">
@@ -1589,122 +1729,6 @@
 
 <div class="section-divider"></div>
 
-<!-- GRAPHISME -->
-<section id="graphisme">
-  <div class="section-label">
-    <span class="tool-badge tb-ps">Photoshop</span>
-    <span class="tool-badge tb-ai">Illustrator</span>
-  </div>
-  <h2 class="section-title">Créations graphiques</h2>
-
-  <div class="gallery-tabs">
-    <button class="tab-btn active" onclick="filterGallery('all', this)">Tout</button>
-    <button class="tab-btn" onclick="filterGallery('affiche', this)">Affiches &amp; Photomontages</button>
-    <button class="tab-btn" onclick="filterGallery('logo', this)">Logos &amp; Identité visuelle</button>
-    <button class="tab-btn" onclick="filterGallery('youtube', this)">Identités YouTube</button>
-    <button class="tab-btn" onclick="filterGallery('album', this)">Pochette d'album</button>
-  </div>
-
-  <div class="gallery-grid" id="gallery">
-    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_lost.jpg','LOST — Affiche film')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_lost.jpg" alt="Affiche LOST">
-      <div class="gallery-overlay"><span class="gallery-label">LOST — Affiche film</span></div>
-    </div>
-    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_last_summer.jpg','The Last Summer — Affiche film')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_last_summer.jpg" alt="The Last Summer">
-      <div class="gallery-overlay"><span class="gallery-label">The Last Summer — Affiche film</span></div>
-    </div>
-    <div class="gallery-item square visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mountain.jpg','Photomontage — Montagne')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mountain.jpg" alt="Photomontage montagne">
-      <div class="gallery-overlay"><span class="gallery-label">Photomontage — Montagne</span></div>
-    </div>
-    <div class="gallery-item square visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_godzilla.jpg','Photomontage — Godzilla')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_godzilla.jpg" alt="Photomontage Godzilla">
-      <div class="gallery-overlay"><span class="gallery-label">Photomontage — Godzilla</span></div>
-    </div>
-    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_poster_traveling.jpg','Traveling — Poster')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_poster_traveling.jpg" alt="Poster Traveling">
-      <div class="gallery-overlay"><span class="gallery-label">Traveling — Poster</span></div>
-    </div>
-    <div class="gallery-item tall visible" data-cat="affiche" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_poster_natures_rights.jpg','Nature\'s Rights — Poster')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_poster_natures_rights.jpg" alt="Poster Nature's Rights">
-      <div class="gallery-overlay"><span class="gallery-label">Nature's Rights : The Ocean — Poster</span></div>
-    </div>
-    <div class="gallery-item tall visible" data-cat="logo" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_logo.jpg','La Main Verte — Identité')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_logo.jpg" alt="La Main Verte — Identité">
-      <div class="gallery-overlay"><span class="gallery-label">La Main Verte — Identité visuelle</span></div>
-    </div>
-    <div class="gallery-item tall visible" data-cat="logo" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_bouquet.jpg','La Main Verte — Bouquet')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_bouquet.jpg" alt="La Main Verte — Bouquet">
-      <div class="gallery-overlay"><span class="gallery-label">La Main Verte — Illustration bouquet</span></div>
-    </div>
-    <div class="gallery-item square visible" data-cat="logo" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_cartes.jpg','La Main Verte — Cartes de visite')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_mainverte_cartes.jpg" alt="Cartes de visite La Main Verte">
-      <div class="gallery-overlay"><span class="gallery-label">La Main Verte — Cartes de visite</span></div>
-    </div>
-    <div class="gallery-item square visible" data-cat="logo" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_lemon.jpg','John Lemon — Illustration')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_lemon.jpg" alt="John Lemon">
-      <div class="gallery-overlay"><span class="gallery-label">John Lemon — Illustration</span></div>
-    </div>
-    <div class="gallery-item wide visible" data-cat="youtube" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_yt_dizzdead_banner.jpg','DizzDead — Bannière YouTube')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_yt_dizzdead_banner.jpg" alt="Bannière YouTube DizzDead">
-      <div class="gallery-overlay"><span class="gallery-label">DizzDead — Bannière YouTube</span></div>
-    </div>
-    <div class="gallery-item square visible" data-cat="youtube" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_yt_dizzdead_avatar.jpg','DizzDead — Avatar YouTube')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_yt_dizzdead_avatar.jpg" alt="Avatar YouTube DizzDead">
-      <div class="gallery-overlay"><span class="gallery-label">DizzDead — Avatar YouTube</span></div>
-    </div>
-    <div class="gallery-item square visible" data-cat="album" onclick="openLightbox('https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_blind.jpg','BLIND — Pochette d\'album')">
-      <img src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/gfx_blind.jpg" alt="Pochette BLIND">
-      <div class="gallery-overlay"><span class="gallery-label">BLIND — Pochette d'album (Carla)</span></div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- LIVRE BLANC -->
-<section id="livre-blanc">
-  <div class="lb-wrapper">
-    <div class="lb-content">
-      <p class="lb-tag">Livre Blanc</p>
-      <h2 class="lb-title">L'ancrage local comme outil de <em>séduction</em></h2>
-      <p class="lb-subtitle">Comment l'hôtellerie indépendante premium peut séduire les voyageurs au-delà des plateformes numériques ?</p>
-      <p class="lb-desc">
-        Face à Airbnb et aux géants du tourisme en ligne, l'hôtellerie indépendante dispose d'un atout unique : son ancrage territorial. Ce livre blanc explore comment les hôtels premium peuvent capitaliser sur leur identité locale, leurs relations humaines et leur singularité pour créer des expériences inoubliables que les plateformes ne peuvent pas répliquer.
-      </p>
-      <a class="lb-cta" href="https://charlyboustouhan.github.io/livre-blanc/" target="_blank" rel="noopener">
-        <span>En savoir plus</span>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-    </div>
-
-    <div class="lb-preview">
-      <div class="lb-preview-glow"></div>
-      <a href="https://charlyboustouhan.github.io/livre-blanc/" target="_blank" rel="noopener" style="display:block;text-decoration:none;">
-        <div class="lb-preview-frame">
-          <div class="lb-preview-bar">
-            <span class="lb-dot"></span>
-            <span class="lb-dot"></span>
-            <span class="lb-dot"></span>
-          </div>
-          <img
-            class="lb-preview-cover"
-            src="https://raw.githubusercontent.com/CharlyRebenga/portfolio/main/img/Livre%20Blanc%20premie%CC%80re%20page.jpg"
-            alt="Première page du Livre Blanc — L'ancrage local comme outil de séduction"
-            loading="lazy"
-            onerror="this.src='livre_blanc_cover.jpg'"
-          >
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
 <!-- ABOUT -->
 <div style="padding: 0 24px 24px;">
   <div class="about-card spotlight-card" id="about">
@@ -1715,7 +1739,7 @@
     <div class="about-content">
       <div class="about-main">
         <p class="about-text">
-          Actuellement en fin de Master Stratégie de Marque &amp; Brand Content à l'ESP Paris, je suis chargé de communication et marketing en alternance chez Terneo, où je gère notamment la présence sur LinkedIn de l'entreprise, la création de landing pages et d'articles de blog dans le cadre de notre stratégie SEO/GEO. Avec 3 ans d'alternance (1KM à Pied, AGIRabcd puis Terneo), j'ai développé une expertise sur les leviers digitaux : SEO/GEO, LinkedIn Ads, e-mailing, newsletter, posts LinkedIn, gestion de projet, etc. Je combine organisation, rigueur, autonomie et force de proposition pour accompagner chaque projet sur lequel je travaille.
+          Diplômé d'un Master Stratégie de Marque &amp; Brand Content à l'ESP Paris, je suis chargé de communication et marketing en alternance chez Terneo, bureau d'études en transition énergétique, où je gère notamment la présence sur LinkedIn de l'entreprise, la création de landing pages et d'articles de blog dans le cadre de notre stratégie SEO/GEO. Avec 3 ans d'alternance (1KM à Pied, AGIRabcd puis Terneo), j'ai développé une expertise sur les leviers digitaux : SEO/GEO, LinkedIn Ads, e-mailing, newsletter, posts LinkedIn, gestion de projet, etc. Je combine organisation, rigueur, autonomie et force de proposition pour accompagner chaque projet sur lequel je travaille.
         </p>
         <div class="about-links">
           <a class="contact-link" href="mailto:boustouhan.charly@gmail.com">
@@ -1753,7 +1777,6 @@
 // ======== PIXEL TRAIL ========
 (function() {
   const canvas = document.getElementById('pixel-trail-canvas');
-  const hero = document.getElementById('hero');
   const ctx = canvas.getContext('2d');
   let pixels = [];
   const PIXEL_SIZE = 6;
@@ -1761,8 +1784,8 @@
   const MAX_PIXELS = 120;
 
   function resizeCanvas() {
-    canvas.width = hero.offsetWidth;
-    canvas.height = hero.offsetHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   }
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
@@ -1774,10 +1797,10 @@
     'rgba(255,122,53,', // orange bright
   ];
 
-  hero.addEventListener('mousemove', (e) => {
-    const rect = hero.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+  window.addEventListener('mousemove', (e) => {
+    // Canvas is fixed to the viewport, so client coordinates map directly
+    const x = e.clientX;
+    const y = e.clientY;
     // Snap to grid
     const gx = Math.floor(x / PIXEL_SIZE) * PIXEL_SIZE;
     const gy = Math.floor(y / PIXEL_SIZE) * PIXEL_SIZE;
@@ -1802,6 +1825,42 @@
     requestAnimationFrame(draw);
   }
   draw();
+})();
+
+// ======== NAME TYPEWRITER (on load) ========
+(function() {
+  const firstNameEl = document.getElementById('typeCharly');
+  const lastNameEl = document.getElementById('typeBoustouhan');
+  if (!firstNameEl || !lastNameEl) return;
+
+  const firstName = "Charly";
+  const lastName = "Boustouhan";
+  const typingSpeed = 220;
+
+  let i = 0;
+  function typeFirstName() {
+    if (i < firstName.length) {
+      const letterSpan = document.createElement('span');
+      letterSpan.className = 'letter';
+      letterSpan.textContent = firstName[i];
+      firstNameEl.appendChild(letterSpan);
+      i++;
+      setTimeout(typeFirstName, typingSpeed);
+    } else {
+      setTimeout(typeLastName, typingSpeed);
+    }
+  }
+
+  let j = 0;
+  function typeLastName() {
+    if (j < lastName.length) {
+      lastNameEl.textContent += lastName[j];
+      j++;
+      setTimeout(typeLastName, typingSpeed);
+    }
+  }
+
+  typeFirstName();
 })();
 
 // ======== CAROUSEL ENGINE ========
@@ -1921,7 +1980,7 @@ document.querySelectorAll('.spotlight-card').forEach(card => {
   });
 });
 
-const sectionIds = ['hero','carousels','landingpages','graphisme','livre-blanc','about'];
+const sectionIds = ['hero','livre-blanc','graphisme','carousels','landingpages','about'];
 const navLinks = document.querySelectorAll('#mainNav a');
 const navEl = document.getElementById('mainNav');
 let lastScrollY = window.scrollY;
